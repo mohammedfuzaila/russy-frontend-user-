@@ -9,7 +9,7 @@ const SPICE_COLORS = ['from-orange-400 to-red-500', 'from-yellow-400 to-orange-5
 
 export default function ProductCard({ product }) {
   const { addItem } = useCart()
-  const { user } = useAuth()
+  const { user, promptLogin } = useAuth()
 
   const colorClass = SPICE_COLORS[product.id % SPICE_COLORS.length]
   const hasDiscount = product.discount_price && parseFloat(product.discount_price) < parseFloat(product.price)
@@ -19,7 +19,7 @@ export default function ProductCard({ product }) {
 
   const handleWishlist = async (e) => {
     e.preventDefault()
-    if (!user) { toast.error('Login to save to wishlist'); return }
+    if (!user) { promptLogin(); return }
     try {
       await addToWishlist(product.id)
       toast.success('Added to wishlist ❤️')
@@ -29,7 +29,7 @@ export default function ProductCard({ product }) {
   return (
     <div className="glass-card group relative flex flex-col justify-between overflow-hidden animate-fade-in hover:-translate-y-2 h-full">
       {/* Image Section */}
-      <Link to={`/products/${product.slug}`} className="block relative h-56 sm:h-64 overflow-hidden shrink-0">
+      <Link to={`/products/${product.slug}`} className="block relative h-44 sm:h-56 overflow-hidden shrink-0">
         <div className={`absolute inset-0 bg-gradient-to-br ${colorClass} opacity-10 transition-opacity duration-500 group-hover:opacity-20`} />
         
         {/* Spice Aura */}

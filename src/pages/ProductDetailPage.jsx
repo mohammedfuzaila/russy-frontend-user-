@@ -11,7 +11,7 @@ const SPICE_COLORS = ['from-orange-400 to-red-500', 'from-yellow-400 to-orange-5
 export default function ProductDetailPage() {
   const { slug } = useParams()
   const { addItem } = useCart()
-  const { user } = useAuth()
+  const { user, promptLogin } = useAuth()
 
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -29,14 +29,14 @@ export default function ProductDetailPage() {
   const handleAddToCart = () => { addItem(product.id, qty) }
 
   const handleWishlist = async () => {
-    if (!user) { toast.error('Please login'); return }
+    if (!user) { promptLogin(); return }
     try { await addToWishlist(product.id); toast.success('Added to wishlist ❤️') }
     catch { toast.error('Failed') }
   }
 
   const handleReview = async (e) => {
     e.preventDefault()
-    if (!user) { toast.error('Please login to review'); return }
+    if (!user) { promptLogin(); return }
     setSubmittingReview(true)
     try {
       await addReview(slug, { rating: reviewRating, comment: reviewText })

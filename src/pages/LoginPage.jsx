@@ -18,6 +18,18 @@ export default function LoginPage() {
     setLoading(true)
     try {
       const res = await loginUser({ email, password })
+      
+      // Handle Admin Redirection
+      if (res.data.user.is_staff) {
+        toast.success(`Admin recognized! Redirecting to Portal... 🔐`)
+        setTimeout(() => {
+          // Point directly to frontend admin dashboard with token
+          const adminUrl = 'https://russy-admin.netlify.app/login'
+          window.location.href = `${adminUrl}?token=${res.data.token}`
+        }, 1200)
+        return
+      }
+
       login(res.data.token, res.data.user)
       toast.success(`Welcome back, ${res.data.user.name.split(' ')[0]}! 🌶️`)
       navigate('/')
@@ -31,9 +43,28 @@ export default function LoginPage() {
       <div className="w-full max-w-md animate-slide-up">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-gradient-to-br from-spice-500 to-chili-600 rounded-2xl flex items-center justify-center text-white font-display text-3xl font-bold mx-auto mb-4 shadow-lg">R</div>
+          <img 
+            src="/logo/logo-hen.png" 
+            alt="Russy Masala" 
+            className="w-16 h-16 object-contain mx-auto mb-4 drop-shadow-md" 
+          />
           <h1 className="font-display text-3xl font-bold text-gray-900">Welcome Back</h1>
           <p className="text-gray-500 mt-1">Sign in to your Russy Masala account</p>
+        </div>
+
+        {/* Tab Switcher */}
+        <div className="flex bg-gray-100 p-1.5 rounded-2xl mb-6 shadow-inner">
+          <button 
+            className="flex-1 py-2.5 rounded-xl font-bold text-sm transition-all bg-white text-spice-600 shadow-md scale-[1.02]"
+          >
+            User Login
+          </button>
+          <a 
+            href={'https://russy-admin.netlify.app'}
+            className="flex-1 py-2.5 rounded-xl font-bold text-sm transition-all text-center text-gray-500 hover:text-gray-700 block"
+          >
+            Admin Login
+          </a>
         </div>
 
         <div className="card p-8">
@@ -62,11 +93,6 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div className="mt-4 p-3 bg-orange-50 rounded-lg text-sm text-gray-600 text-center">
-            <strong>Admin login:</strong> Head to <a href="http://localhost:3001/login" target="_blank" rel="noopener noreferrer" className="text-spice-600 hover:underline">Admin Portal</a>
-            <br />
-            (Demo credentials: admin@russymasala.com / admin123)
-          </div>
 
           <p className="text-center text-sm text-gray-600 mt-6">
             Don't have an account?{' '}

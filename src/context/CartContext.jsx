@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 const CartContext = createContext(null)
 
 export function CartProvider({ children }) {
-  const { user } = useAuth()
+  const { user, promptLogin } = useAuth()
   const [cart, setCart] = useState({ items: [], total: '0', count: 0 })
   const [loading, setLoading] = useState(false)
 
@@ -29,7 +29,10 @@ export function CartProvider({ children }) {
   }
 
   const addItem = async (product_id, quantity = 1) => {
-    if (!user) { toast.error('Please login to add items to cart'); return }
+    if (!user) { 
+      promptLogin();
+      return; 
+    }
     try {
       const res = await addToCart({ product_id, quantity })
       setCart(res.data.cart)

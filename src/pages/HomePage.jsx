@@ -50,38 +50,38 @@ export default function HomePage() {
   const slide = HERO_SLIDES[heroIdx]
 
   return (
-    <div className="animate-fade-in overflow-x-hidden">
+    <div className="animate-fade-in overflow-x-hidden bg-cream/50">
 
       {/* ── HERO ──────────────────────────────────────────────── */}
-      <section className={`relative overflow-hidden bg-gradient-to-br ${slide.gradient} transition-all duration-1000 spice-dust min-h-[600px] md:min-h-[650px] flex items-center`}>
+      <section className={`relative overflow-hidden bg-gradient-to-br ${slide.gradient} transition-all duration-700 spice-dust min-h-[400px] md:min-h-[550px] flex items-center pb-24 md:pb-32 shadow-2xl`}>
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-10 -right-20 w-[40%] h-[60%] bg-white/10 blur-[130px] rounded-full" />
           <div className="absolute -bottom-20 -left-20 w-[50%] h-[70%] bg-black/10 blur-[150px] rounded-full" />
           
-          <div className="absolute top-[15%] left-[5%] text-[100px] md:text-[180px] opacity-10 animate-float select-none filter blur-sm">🌶</div>
-          <div className="absolute bottom-[10%] right-[10%] text-[80px] md:text-[140px] opacity-10 animate-float select-none filter blur-[2px]" style={{ animationDelay: '2s' }}>🫙</div>
-          <div className="absolute top-[60%] left-[60%] text-[60px] md:text-[100px] opacity-5 animate-float select-none" style={{ animationDelay: '4s' }}>🌿</div>
+          <div className="absolute top-[15%] left-[5%] text-[100px] md:text-[180px] opacity-10 select-none filter blur-sm">🌶</div>
+          <div className="absolute bottom-[10%] right-[10%] text-[80px] md:text-[140px] opacity-10 select-none filter blur-[2px]">🫙</div>
+          <div className="absolute top-[60%] left-[60%] text-[60px] md:text-[100px] opacity-5 select-none">🌿</div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 flex flex-col md:flex-row items-center gap-10 md:gap-16 w-full">
           <div className="flex-1 text-white text-center md:text-left z-10 w-full">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full mb-6 md:mb-8 border border-white/20 animate-fade-in shadow-xl mx-auto md:mx-0">
-              <span className="w-2 h-2 bg-chili-400 rounded-full animate-ping" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full mb-6 md:mb-8 border border-white/20 shadow-xl mx-auto md:mx-0">
+              <span className="w-2 h-2 bg-chili-400 rounded-full" />
               <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-white/90 whitespace-nowrap">Curating India's Finest Traditions</span>
             </div>
             
-            <h1 className="font-display text-4xl md:text-7xl lg:text-9xl font-black leading-[0.9] md:leading-[0.85] mb-6 md:mb-8 animate-slide-up tracking-tighter">
-              {slide.title.split(' ').map((word, i) => (
-                <span key={i} className="inline-block mr-2 md:mr-4 drop-shadow-2xl">{word}</span>
+            <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] md:leading-[1] mb-6 md:mb-8 tracking-tight transition-all duration-500">
+              {slide.title.split('.').map((part, i) => (
+                <span key={i} className="block first:text-white/100 last:text-white/80">{part}{i < slide.title.split('.').length - 1 ? '.' : ''}</span>
               ))}
             </h1>
             
-            <p className="text-base md:text-2xl text-white/70 mb-10 md:mb-12 max-w-xl animate-slide-up leading-relaxed font-medium px-2 md:px-0 mx-auto md:mx-0">
+            <p className="text-sm md:text-xl text-white/70 mb-8 md:mb-10 max-w-xl leading-relaxed font-medium px-2 md:px-0 mx-auto md:mx-0 transition-all duration-500">
               {slide.subtitle}
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-5 animate-slide-up px-2 md:px-0 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-5 px-2 md:px-0 w-full sm:w-auto">
               <Link to="/shop" className="w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 bg-white text-gray-900 rounded-2xl font-black uppercase tracking-widest text-[10px] md:text-xs hover:bg-spice-100 hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-3">
                 Experience the Aroma <ArrowRight size={18} />
               </Link>
@@ -93,33 +93,33 @@ export default function HomePage() {
 
           {/* Large Visual Emoji for "WOW" */}
           <div className="flex-1 hidden md:flex justify-center items-center relative z-10">
-             <div className="absolute inset-0 bg-white/5 blur-[100px] rounded-full animate-pulse-slow" />
-             <div className="text-[250px] md:text-[350px] drop-shadow-[0_45px_45px_rgba(0,0,0,0.6)] animate-float select-none filter contrast-125 saturate-150">
+             <div className="absolute inset-0 bg-white/5 blur-[100px] rounded-full" />
+             <div className="text-[250px] md:text-[350px] drop-shadow-[0_45px_45px_rgba(0,0,0,0.6)] select-none filter contrast-125 saturate-150">
                 {slide.emoji}
              </div>
           </div>
         </div>
 
-        {/* Slide dots */}
-        <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2 md:gap-3">
+        {/* Slide dots - Positioned higher to avoid overlap */}
+        <div className="absolute bottom-28 md:bottom-24 left-1/2 -translate-x-1/2 z-20 flex gap-2 md:gap-3">
           {HERO_SLIDES.map((_, i) => (
             <button key={i} onClick={() => setHeroIdx(i)}
-              className={`h-1.5 rounded-full transition-all duration-500 ${i === heroIdx ? 'w-8 md:w-12 bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]' : 'w-3 bg-white/30 hover:bg-white/50'}`} />
+              className={`h-1 rounded-full transition-all duration-500 ${i === heroIdx ? 'w-8 md:w-12 bg-white' : 'w-2 bg-white/20 hover:bg-white/40'}`} />
           ))}
         </div>
       </section>
 
       {/* ── FEATURES ───────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 md:-mt-8 relative z-10 overflow-visible">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
           {FEATURES.map(({ icon: Icon, title, desc, color }) => (
-            <div key={title} className="glass-card p-3 md:p-5 flex flex-col sm:flex-row items-center sm:items-start gap-2 md:gap-4 hover:-translate-y-1 transition-transform duration-300 text-center sm:text-left h-full">
-              <div className={`w-9 h-9 md:w-12 md:h-12 ${color} rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 shadow-inner`}>
-                <Icon size={isMobile ? 18 : 24} />
+            <div key={title} className="glass-card p-4 md:p-5 flex flex-row items-center gap-4 hover:-translate-y-2 transition-all duration-300 h-full border-t-4 border-t-white/90 border-b-4 border-b-spice-500 shadow-xl overflow-hidden group">
+              <div className={`w-12 h-12 ${color} rounded-2xl flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform`}>
+                <Icon size={22} />
               </div>
-              <div className="min-w-0">
-                <p className="font-display font-bold text-[10px] md:text-sm text-gray-900 truncate md:whitespace-normal">{title}</p>
-                <p className="text-[8px] md:text-xs text-gray-500 mt-0.5 leading-tight">{desc}</p>
+              <div className="min-w-0 flex-1">
+                <p className="font-display font-bold text-sm text-gray-900">{title}</p>
+                <p className="text-xs text-gray-500 mt-0.5 leading-tight">{desc}</p>
               </div>
             </div>
           ))}
@@ -135,7 +135,7 @@ export default function HomePage() {
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
             {categories.map((cat) => (
               <Link key={cat.id} to={`/shop?category=${cat.slug}`}
-                className="glass-card p-4 md:p-5 group flex items-center gap-4 hover:-translate-y-1 transition-all duration-300 border border-white/20">
+                className="glass-card p-4 md:p-5 group flex items-center gap-4 hover:-translate-y-1 transition-all duration-300 border-2 border-spice-100 hover:border-spice-500 hover:shadow-lg hover:shadow-spice-500/30 rounded-2xl bg-white/60 hover:bg-white">
                 <div className="w-10 h-10 md:w-14 md:h-14 rounded-2xl bg-spice-50 text-xl md:text-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 drop-shadow-sm">
                   {cat.icon || '🌶️'}
                 </div>
@@ -165,10 +165,6 @@ export default function HomePage() {
                         <p className="text-white font-display text-xl md:text-2xl font-bold leading-tight">Harvesting Traditions, <br/>Spreading Flavours.</p>
                     </div>
                 </div>
-                {/* Decorative Elements */}
-                <div className="absolute -top-5 -left-5 md:-top-10 md:-left-10 w-24 h-24 md:w-40 md:h-40 bg-turmeric/20 rounded-full blur-2xl md:blur-3xl animate-pulse" />
-                <div className="absolute -bottom-5 -right-5 md:-bottom-10 md:-right-10 w-32 h-32 md:w-60 md:h-60 bg-chili-600/10 rounded-full blur-2xl md:blur-3xl animate-pulse-slow" />
-                <div className="absolute top-1/2 -right-6 md:-right-12 w-16 h-16 md:w-24 md:h-24 bg-white rounded-2xl md:rounded-3xl shadow-xl flex items-center justify-center text-2xl md:text-4xl rotate-12 animate-float">🌶️</div>
             </div>
 
             <div className="flex-1 text-center md:text-left">
@@ -229,7 +225,7 @@ export default function HomePage() {
                     <p className="text-white/60 font-bold uppercase tracking-widest text-[10px] md:text-xs">Pure & Natural</p>
                 </div>
                 <div>
-                    <p className="font-display text-4xl md:text-5xl font-black text-turmeric mb-2">20+</p>
+                    <p className="font-display text-4xl md:text-5xl font-black text-turmeric mb-2">10+</p>
                     <p className="text-white/60 font-bold uppercase tracking-widest text-[10px] md:text-xs">Spice Blends</p>
                 </div>
                 <div>
@@ -241,28 +237,53 @@ export default function HomePage() {
       </section>
 
       {/* ── FEATURED PRODUCTS ──────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 mb-20">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="section-title">Featured <span className="gradient-text">Spices</span></h2>
-            <p className="text-gray-500 mt-1">Our most-loved picks, straight from the source</p>
+      <section className="mt-16 mb-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="section-title">Featured <span className="gradient-text">Spices</span></h2>
+              <p className="text-gray-500 mt-1">Our most-loved picks, straight from the source</p>
+            </div>
+            <Link to="/shop" className="btn-secondary text-sm py-2 px-4 hidden sm:flex items-center gap-2">
+              View All <ArrowRight size={16} />
+            </Link>
           </div>
-          <Link to="/shop" className="btn-secondary text-sm py-2 px-4 hidden sm:flex items-center gap-2">
-            View All <ArrowRight size={16} />
-          </Link>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+
+        {/* Mobile: horizontal snap scroll (hidden scrollbar) */}
+        <div className="hide-scrollbar sm:hidden px-4 flex gap-4 overflow-x-auto snap-x snap-mandatory pb-1"
+          style={{
+            WebkitOverflowScrolling: 'touch',
+          }}>
+          {loading
+            ? Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="snap-start shrink-0" style={{ width: 'calc(50% - 8px)' }}>
+                  <ProductSkeleton />
+                </div>
+              ))
+            : featured.map((p) => (
+                <div key={p.id} className="snap-start shrink-0" style={{ width: 'calc(50% - 8px)' }}>
+                  <ProductCard product={p} />
+                </div>
+              ))
+          }
+        </div>
+
+        {/* Desktop: regular responsive grid */}
+        <div className="hidden sm:grid max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {loading
             ? Array.from({ length: 8 }).map((_, i) => <ProductSkeleton key={i} />)
             : featured.map((p) => <ProductCard key={p.id} product={p} />)
           }
         </div>
-        <div className="mt-8 text-center sm:hidden">
+
+        <div className="mt-8 text-center sm:hidden px-4">
           <Link to="/shop" className="btn-primary inline-flex items-center gap-2">
             View All Products <ArrowRight size={16} />
           </Link>
         </div>
       </section>
+
 
       {/* ── BANNER CTA ─────────────────────────────────────────── */}
       <section className="bg-gradient-to-r from-spice-600 to-chili-700 py-16">

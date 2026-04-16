@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { User, Package, Heart, Edit2, Save, X, ChevronRight } from 'lucide-react'
-import { getProfile, updateProfile, getOrders, getWishlist, removeFromWishlist } from '../api'
+import { getProfile, updateProfile, getOrders, getWishlist, removeFromWishlist, cancelOrder } from '../api'
 import { useAuth } from '../context/AuthContext'
 import toast from 'react-hot-toast'
 
@@ -49,6 +49,18 @@ export default function ProfilePage() {
     await removeFromWishlist(productId)
     setWishlistItems((w) => w.filter((i) => i.product.id !== productId))
     toast.success('Removed from wishlist')
+  }
+
+  const handleCancelOrder = async (orderId) => {
+    if (!window.confirm('Are you sure you want to cancel this order? This cannot be undone.')) return;
+    try {
+      await cancelOrder(orderId);
+      toast.success('Order cancelled successfully!');
+      const o = await getOrders();
+      setOrders(o.data.orders);
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Failed to cancel order');
+    }
   }
 
   if (loading) return <div className="text-center py-32 text-gray-400">Loading...</div>
@@ -105,11 +117,22 @@ export default function ProfilePage() {
                   <div className="flex items-center justify-between mb-3">
                     <div>
                       <p className="font-semibold text-gray-900">Order #{order.id}</p>
-                      <p className="text-xs text-gray-400">{new Date(order.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <p className="text-xs text-gray-400">{new Date(order.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                        {order.payment_method && <span className="text-[10px] font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded uppercase tracking-wider">{order.payment_method.replace('_', ' ')}</span>}
+                      </div>
                     </div>
                     <div className="text-right">
                       <span className={`badge ${STATUS_COLORS[order.status] || 'bg-gray-100 text-gray-600'} capitalize`}>{order.status}</span>
                       <p className="text-sm font-bold text-gray-900 mt-1">₹{order.total_amount}</p>
+                      {(order.status === 'pending' || order.status === 'confirmed') && (
+                        <button 
+                          onClick={() => handleCancelOrder(order.id)}
+                          className="mt-2 text-xs font-bold text-red-600 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition-colors block ml-auto"
+                        >
+                          Cancel Order
+                        </button>
+                      )}
                     </div>
                   </div>
 
@@ -200,6 +223,16 @@ export default function ProfilePage() {
                       disabled={!editing || disabled} className={`input ${(!editing || disabled) ? 'bg-gray-50 text-gray-500' : ''}`} />
                   </div>
                 ))}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Gender</label>
+                  <select value={editData.gender || ''} onChange={(e) => setEditData({ ...editData, gender: e.target.value })}
+                    disabled={!editing} className={`input ${!editing ? 'bg-gray-50 text-gray-500 appearance-none' : ''}`}>
+                    <option value="" disabled>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Default Address</label>
                   <textarea value={editData.address || ''} onChange={(e) => setEditData({ ...editData, address: e.target.value })}
